@@ -8,6 +8,7 @@ import SharedLayout from "./pages/SharedLayout";
 import SingleProduct from "./pages/SingleProduct";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,11 +24,19 @@ function App() {
             path="Products/:ProductsId"
             element={<SingleProduct />}
           ></Route>
-          <Route path="Login" element={<Login setUser={setUser} />}></Route>  {/* Just Passing the function. */}
-          <Route path="Dashboard" element={<Dashboard user={user} />}></Route>
+          <Route path="Login" element={<Login setUser={setUser} />}></Route>{" "}
+          {/* Just Passing the function. (setUser function) */}
+          <Route
+            path="Dashboard"
+            element={
+              <ProtectedRoute user={user}>
+                <Dashboard user={user} /> 
+              </ProtectedRoute>
+            }
+          ></Route>
           <Route path="*" element={<Error />} />
         </Route>
-      </Routes> 
+      </Routes>
     </BrowserRouter>
   );
 }
